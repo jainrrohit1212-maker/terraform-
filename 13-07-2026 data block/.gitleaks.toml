@@ -1,0 +1,40 @@
+title = "GitLeaks Configuration"
+
+[allowlist]
+description = "Allow common false positives"
+paths = [
+  '''terraform.tfstate''',
+  '''terraform.tfstate.backup''',
+  '''.terraform/''',
+  '''.git/'''
+]
+
+regexes = [
+  '''(?i)example''',
+  '''(?i)dummy''',
+  '''(?i)test'''
+]
+
+[[rules]]
+id = "azure-storage-key"
+description = "Azure Storage Account Key"
+regex = '''(?i)(AccountKey=|accountkey=)[A-Za-z0-9+/=]{88}'''
+tags = ["azure", "secret"]
+
+[[rules]]
+id = "azure-client-secret"
+description = "Azure Client Secret"
+regex = '''(?i)(client_secret|ARM_CLIENT_SECRET)\s*[:=]\s*["']?[A-Za-z0-9~!@#$%^&*()_+\-={}[\]|\\:;"'<>,.?/]{8,}["']?'''
+tags = ["azure", "secret"]
+
+[[rules]]
+id = "password"
+description = "Hardcoded Password"
+regex = '''(?i)(password|admin_password)\s*[:=]\s*["'].*["']'''
+tags = ["password"]
+
+[[rules]]
+id = "api-key"
+description = "Generic API Key"
+regex = '''(?i)(api[_-]?key|apikey)\s*[:=]\s*["']?[A-Za-z0-9_\-]{16,}["']?'''
+tags = ["apikey"]

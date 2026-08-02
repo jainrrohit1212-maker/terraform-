@@ -1,0 +1,9 @@
+# Local .terraform directory (Heavy providers and modules)
+.terraform/
+
+# Terraform state files (Sensitive data inside)
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+gitleaks-report.json
+gitleaks-report.sarif
